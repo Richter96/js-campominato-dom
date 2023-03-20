@@ -17,7 +17,6 @@ con difficoltà 3 => 49 caselle, con un numero compreso tra 1 e 49, divise in 7 
 //---------------------- RECUPERIAMO ELEMENTI DEL DOM 
 
 const ContainerBoxEl = document.querySelector('.container_main')
-const difficoltà = document.querySelector('.change_difficolt').value
 const btnPlay = document.querySelector('button.play')//recuperiamo il bottone del doom
 let bombsEl = []
 
@@ -26,6 +25,8 @@ let bombsEl = []
 
 
 btnPlay.addEventListener('click', function () {// assegnamo al bottone una funzone
+const difficoltà = document.querySelector('.change_difficolt').value
+
     // funzione per generare le box
     generateBox(difficoltà)
     // generiamo le bombe
@@ -45,12 +46,12 @@ btnPlay.addEventListener('click', function () {// assegnamo al bottone una funzo
             this_box.addEventListener('click', function () {
                 if (numberClickBox == elementbomb) {
                 this_box.classList.add('bg-red')
+                alert('HAI PERSO')
                 } else {
                     this_box.classList.add('bg-lightblue')
                 }
             })
         }
-
     }
 
 
