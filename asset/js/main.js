@@ -19,7 +19,6 @@ con difficoltà 3 => 49 caselle, con un numero compreso tra 1 e 49, divise in 7 
 const ContainerBoxEl = document.querySelector('.container_main')
 const btnPlay = document.querySelector('button.play')//recuperiamo il bottone del doom
 const containerPunti = document.querySelector('.container_punti')
-let bombsEl = []
 let vite = 3
 let score = 0
 
@@ -34,14 +33,14 @@ btnPlay.addEventListener('click', function () {// assegnamo al bottone una funzo
     // funzione per generare le box
     generateBox(difficoltà)
     // generiamo le bombe
-    Generatebomb(difficoltà)
-    console.log(bombsEl)
+    const bombs = Generatebomb(difficoltà)
+    console.log(bombs)
     //---------------------andiaom a colorare le celle selezionate
     // constante per selezionare tutti i box
     // impostiamo il colore rosso se calpestiamo una delle bombe (bombsEl) in alternativa il colore della casella sarà azzurro
     const allBox = document.querySelectorAll('.box')
-    for (b = 0; b < bombsEl.length; b++) {
-        const elementbomb = bombsEl[b]
+    for (b = 0; b < bombs.length; b++) {
+        const elementbomb = bombs[b]
         console.log(elementbomb)
         for (let k = 0; k < allBox.length; k++) {
             const this_box = allBox[k]
@@ -84,12 +83,19 @@ function generateBox(numberBox) {
 
 function Generatebomb(livello) {
     //impostiamo un reset ai numeri delle bombe
-    bombsEl = [];
+    let bombsEl = [];
     //creaimo un ciclo per generare 16 numeri compresi tra i numeri di celle del livello
-    for (let nbom = 0; nbom < 16; nbom++) {
+    nbom = 0
+    while (bombsEl.length < 16) {
         const numBomb = Number(Math.ceil(Math.random() * livello))
-        bombsEl.push(numBomb)
+        if(!bombsEl.includes(numBomb)){
+            bombsEl.push(numBomb)
+        }
+        nbom++
     }
+    console.log(bombsEl)
+    return(bombsEl)
+
 }
 
 
