@@ -28,6 +28,9 @@ let bombsEl = []
 btnPlay.addEventListener('click', function () {// assegnamo al bottone una funzone
     // funzione per generare le box
     generateBox(difficoltà)
+    // generiamo le bombe
+    Generatebomb(difficoltà)
+    console.log(bombsEl)
 
 //---------------------andiaom a colorare le celle selezionate
     // constante per selezionare tutti i box
@@ -52,9 +55,6 @@ btnPlay.addEventListener('click', function () {// assegnamo al bottone una funzo
 
 
 
-
-    Generatebomb(difficoltà)
-    console.log(bombsEl)
 })
 
 
