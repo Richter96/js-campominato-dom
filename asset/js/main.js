@@ -39,24 +39,21 @@ btnPlay.addEventListener('click', function () {// assegnamo al bottone una funzo
     // constante per selezionare tutti i box
     // impostiamo il colore rosso se calpestiamo una delle bombe (bombsEl) in alternativa il colore della casella sarà azzurro
     const allBox = document.querySelectorAll('.box')
-    for (b = 0; b < bombs.length; b++) {
-        const elementbomb = bombs[b]
-        console.log(elementbomb)
-        for (let k = 0; k < allBox.length; k++) {
-            const this_box = allBox[k]
-            const numberClickBox = Number(k + 1)
-            this_box.addEventListener('click', function () {
-                if (numberClickBox == elementbomb) {
-                    this_box.classList.add('bg-red')
-                    vite--
-                } else {
-                    this_box.classList.add('bg-lightblue')
-                    score++
-                    punteggiomarkup = `<span>il tuo punteggio è ${score}, ed hai ancora ${vite}</span>`
-                    containerPunti.innerHTML = punteggiomarkup
-                }
-            })
-        }
+
+    for (let k = 0; k < allBox.length; k++) {
+        const this_box = allBox[k]
+        const numberClickBox = Number(k + 1)
+        this_box.addEventListener('click', function () {
+            if (bombs.includes(numberClickBox)) {
+                this_box.classList.add('bg-red')
+                vite--
+            } else {
+                this_box.classList.add('bg-lightblue')
+                score++
+                punteggiomarkup = `<span>il tuo punteggio è ${score}, ed hai ancora ${vite}</span>`
+                containerPunti.innerHTML = punteggiomarkup
+            }
+        })
     }
 })
 
