@@ -14,51 +14,67 @@ con difficoltà 3 => 49 caselle, con un numero compreso tra 1 e 49, divise in 7 
 
 
 
-// recuper elementi del dom nel quale inserire il loop
+//---------------------- RECUPERIAMO ELEMENTI DEL DOM 
+
 const ContainerBoxEl = document.querySelector('.container_main')
-
-
-//-------------------- creare un bottone per generare una griglia
-
-//recuperiamo il bottone del doom
-const btnPlay = document.querySelector('button.play')
-
-// assegnamo al bottone una funzone
-btnPlay.addEventListener('click', function() {
-// diaom all'container un reset del contenuto.
-ContainerBoxEl.innerHTML = ('')
-
-// prendiamo il valore scelto dal select difficoltà
 const difficoltà = document.querySelector('.change_difficolt').value
-// definiamo il numero di box prendendolo.
-let numberBox = difficoltà
+const btnPlay = document.querySelector('button.play')//recuperiamo il bottone del doom
+let bombsEl = []
 
-// -------------------------generare un loop per la creazione di box
-// dichiaro una costante x numero di box
-// makup del codice html
-for (let i = 1; i <= numberBox; i++) {
-    // console.log([i])
-// creiamo un markup per i box
-    const Box_Markup = `<div style="width:calc(100% / ${Math.sqrt(numberBox)} " class="box justify-content-center d-flex  align-items-center"><span>${[i]}</span></div>`
-    // console.log(Box_Markup)
-// scriviamo il markup nell'dom
-    ContainerBoxEl.insertAdjacentHTML('beforeend', Box_Markup)
-// selezioniamo il singolo box
+
+//-------------------- creare un bottone PLAY per generare una GRIGLIA e far partire il gioco
+
+
+btnPlay.addEventListener('click', function () {// assegnamo al bottone una funzone
+    // funzione per generare le box
+    generateBox(difficoltà)
+
+//---------------------andiaom a colorare le celle selezionate
+    // constante per selezionare tutti i box
+    const allBox = document.querySelectorAll('.box')
+    for (let k = 0; k < allBox.length; k++) {
+        const this_box = allBox[k]
+        this_box.addEventListener('click', function () {
+            this_box.classList.add('bg-lightblue')
+            console.log(k + 1)
+        })
+    }
+
+
+    Generatebomb(difficoltà)
+    console.log(bombsEl)
+})
+
+
+
+
+
+//----------------------------- FUNZIONI
+
+function generateBox(numberBox) {
+    // impostiamo un reset box
+    ContainerBoxEl.innerHTML = ('')
+    // -------------------------generare un loop per la creazione di box
+    // dichiaro una costante x numero di box
+    for (let i = 1; i <= numberBox; i++) {
+        // creiamo un markup per i box
+        const Box_Markup = `<div style="width:calc(100% / ${Math.sqrt(numberBox)} " class="box justify-content-center d-flex  align-items-center"><span>${[i]}</span></div>`
+        // console.log(Box_Markup)
+        // scriviamo il markup nell'dom
+        ContainerBoxEl.insertAdjacentHTML('beforeend', Box_Markup)
+        // selezioniamo il singolo box
+    }
 }
 
-// andiaom a selezionare le cielle da colorare
-
-// constante per selezionare tutti i box
-const allBox = document.querySelectorAll('.box')
-// console.log(allBox)
-for (let k = 0; k < allBox.length; k++) {
-    const this_box = allBox[k]
-    this_box.addEventListener('click', function() {
-        this_box.classList.add('bg-lightblue')
-        console.log(k + 1)
-    })
+function Generatebomb(livello) {
+    //impostiamo un reset ai numeri delle bombe
+    bombsEl = [];
+    //creaimo un ciclo per generare 16 numeri compresi tra i numeri di celle del livello
+    for (let nbom = 0; nbom < 16; nbom++) {
+        const numBomb = Number(Math.ceil(Math.random() * livello))
+        bombsEl.push(numBomb)
+    }
 }
-} )
 
 
 
@@ -66,3 +82,36 @@ for (let k = 0; k < allBox.length; k++) {
 
 
 
+/* Consegna
+
+// Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
+nella stessa cella può essere posizionata al massimo una bomba, perciò nell’array delle bombe non potranno esserci due numeri uguali.
+In seguito l'utente clicca su una cella:
+se il numero è presente nella lista dei numeri generati
+abbiamo calpestato una bomba
+la cella si colora di rosso e la partita termina.
+Altrimenti
+la cella cliccata si colora di azzurro
+l'utente può continuare a cliccare sulle altre celle.
+La partita termina quando il giocatore clicca su una bomba o quando raggiunge il numero massimo possibile di numeri consentiti (ovvero quando ha rivelato tutte le celle che non sono bombe).
+Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una bomba. */
+
+
+
+
+/* // Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
+
+// generiamo un array con i numeri delle bombe
+
+// dichiariamo un livello di partenza
+const livello1 = 40
+
+// generiamo dei numeri a caso da 1 al numero di livello
+const numBomb = Number(Math.ceil(Math.random() * livello1))
+// console.log(numBomb);
+
+// creiamo un loop per generare i 16 numeri delle bombe 
+
+console.log(bombsEl)
+
+ */
