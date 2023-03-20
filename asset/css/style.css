@@ -17,7 +17,7 @@ header {
     height: 70px;
 }
 
-.container_main {
+.container_main, .container_punti {
     display: flex;
     flex-wrap: wrap;
     width: 80%;

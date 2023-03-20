@@ -18,22 +18,25 @@ con difficoltà 3 => 49 caselle, con un numero compreso tra 1 e 49, divise in 7 
 
 const ContainerBoxEl = document.querySelector('.container_main')
 const btnPlay = document.querySelector('button.play')//recuperiamo il bottone del doom
+const containerPunti = document.querySelector('.container_punti')
 let bombsEl = []
+let vite = 3
+let score = 0
+
 
 
 //-------------------- creare un bottone PLAY per generare una GRIGLIA e far partire il gioco
 
 
 btnPlay.addEventListener('click', function () {// assegnamo al bottone una funzone
-const difficoltà = document.querySelector('.change_difficolt').value
+    const difficoltà = document.querySelector('.change_difficolt').value
 
     // funzione per generare le box
     generateBox(difficoltà)
     // generiamo le bombe
     Generatebomb(difficoltà)
     console.log(bombsEl)
-
-//---------------------andiaom a colorare le celle selezionate
+    //---------------------andiaom a colorare le celle selezionate
     // constante per selezionare tutti i box
     // impostiamo il colore rosso se calpestiamo una delle bombe (bombsEl) in alternativa il colore della casella sarà azzurro
     const allBox = document.querySelectorAll('.box')
@@ -45,17 +48,17 @@ const difficoltà = document.querySelector('.change_difficolt').value
             const numberClickBox = Number(k + 1)
             this_box.addEventListener('click', function () {
                 if (numberClickBox == elementbomb) {
-                this_box.classList.add('bg-red')
-                alert('HAI PERSO')
+                    this_box.classList.add('bg-red')
+                    vite--
                 } else {
                     this_box.classList.add('bg-lightblue')
+                    score++
+                    punteggiomarkup = `<span>il tuo punteggio è ${score}, ed hai ancora ${vite}</span>`
+                    containerPunti.innerHTML = punteggiomarkup
                 }
             })
         }
     }
-
-
-
 })
 
 
