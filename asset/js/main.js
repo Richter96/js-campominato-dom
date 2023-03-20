@@ -21,7 +21,7 @@ const btnPlay = document.querySelector('button.play')//recuperiamo il bottone de
 const containerPunti = document.querySelector('.container_punti')
 let vite = 3
 let score = 0
-
+let game = true
 
 
 //-------------------- creare un bottone PLAY per generare una GRIGLIA e far partire il gioco
@@ -47,14 +47,24 @@ btnPlay.addEventListener('click', function () {// assegnamo al bottone una funzo
             if (bombs.includes(numberClickBox)) {
                 this_box.classList.add('bg-red')
                 vite--
+                punteggiomarkup = `<span>il tuo punteggio è ${score}, ed hai ancora ${vite} vite</span>`
+                containerPunti.innerHTML = punteggiomarkup
+                if (vite == 0) {
+                    alert('HAI PERSO')
+                    ContainerBoxEl.innerHTML = ('')
+                    punteggiomarkup = `<span>il tuo punteggio è di ${score}, mi spiece hai terminato le vite!!</span>`
+                    containerPunti.innerHTML = punteggiomarkup
+                }
             } else {
                 this_box.classList.add('bg-lightblue')
                 score++
                 punteggiomarkup = `<span>il tuo punteggio è ${score}, ed hai ancora ${vite}</span>`
                 containerPunti.innerHTML = punteggiomarkup
             }
+
         })
     }
+
 })
 
 
@@ -85,13 +95,13 @@ function Generatebomb(livello) {
     nbom = 0
     while (bombsEl.length < 16) {
         const numBomb = Number(Math.ceil(Math.random() * livello))
-        if(!bombsEl.includes(numBomb)){
+        if (!bombsEl.includes(numBomb)) {
             bombsEl.push(numBomb)
         }
         nbom++
     }
     console.log(bombsEl)
-    return(bombsEl)
+    return (bombsEl)
 
 }
 
