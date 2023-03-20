@@ -32,6 +32,9 @@ header {
 .bg-lightblue {
     background-color: paleturquoise;
 }
+.bg-red {
+    background-color: rgb(255, 0, 217);
+}
 
 main {
     background-color: rgba(127, 255, 212, 0.547);

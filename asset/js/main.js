@@ -31,14 +31,26 @@ btnPlay.addEventListener('click', function () {// assegnamo al bottone una funzo
 
 //---------------------andiaom a colorare le celle selezionate
     // constante per selezionare tutti i box
+    // impostiamo il colore rosso se calpestiamo una delle bombe (bombsEl) in alternativa il colore della casella sarà azzurro
     const allBox = document.querySelectorAll('.box')
-    for (let k = 0; k < allBox.length; k++) {
-        const this_box = allBox[k]
-        this_box.addEventListener('click', function () {
-            this_box.classList.add('bg-lightblue')
-            console.log(k + 1)
-        })
+    for (b = 0; b < bombsEl.length; b++) {
+        const elementbomb = bombsEl[b]
+        console.log(elementbomb)
+        for (let k = 0; k < allBox.length; k++) {
+            const this_box = allBox[k]
+            const numberClickBox = Number(k + 1)
+            this_box.addEventListener('click', function () {
+                if (numberClickBox == elementbomb) {
+                this_box.classList.add('bg-red')
+                } else {
+                    this_box.classList.add('bg-lightblue')
+                }
+            })
+        }
+
     }
+
+
 
 
     Generatebomb(difficoltà)
@@ -99,6 +111,18 @@ Al termine della partita il software deve comunicare il punteggio, cioè il nume
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 /* // Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
 
 // generiamo un array con i numeri delle bombe
@@ -115,3 +139,6 @@ const numBomb = Number(Math.ceil(Math.random() * livello1))
 console.log(bombsEl)
 
  */
+
+
+
