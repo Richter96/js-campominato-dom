@@ -34,7 +34,7 @@ btnPlay.addEventListener('click', function () {// assegnamo al bottone una funzo
     generateBox(difficoltà)
     // generiamo le bombe
     const bombs = Generatebomb(difficoltà)
-    console.log(bombs)
+    // console.log(bombs)
     //---------------------andiaom a colorare le celle selezionate
     // constante per selezionare tutti i box
     // impostiamo il colore rosso se calpestiamo una delle bombe (bombsEl) in alternativa il colore della casella sarà azzurro
@@ -46,22 +46,13 @@ btnPlay.addEventListener('click', function () {// assegnamo al bottone una funzo
         this_box.addEventListener('click', function () {
             if (bombs.includes(numberClickBox)) {
                 this_box.classList.add('bg-red')
+                this_box.textContent = '💣'
                 vite--
-                punteggiomarkup = `<span>il tuo punteggio è ${score}, ed hai ancora ${vite} vite</span>`
-                containerPunti.innerHTML = punteggiomarkup
-                if (vite == 0) {
-                    alert('HAI PERSO')
-                    ContainerBoxEl.innerHTML = ('')
-                    punteggiomarkup = `<span>il tuo punteggio è di ${score}, mi spiece hai terminato le vite!!</span>`
-                    containerPunti.innerHTML = punteggiomarkup
-                    vite = 3
-                    score = 0
-                }
+                scoreReset(vite, score)
             } else {
                 this_box.classList.add('bg-lightblue')
                 score++
-                punteggiomarkup = `<span>il tuo punteggio è ${score}, ed hai ancora ${vite}</span>`
-                containerPunti.innerHTML = punteggiomarkup
+                scoreReset(vite, score)
             }
 
         })
@@ -87,16 +78,19 @@ function generateBox(numberBox) {
         // scriviamo il markup nell'dom
         ContainerBoxEl.insertAdjacentHTML('beforeend', Box_Markup)
         // selezioniamo il singolo box
+
     }
+    vite = 3
+    score = 0
 }
 
-function Generatebomb(livello) {
+function Generatebomb(max, min = 1) {
     //impostiamo un reset ai numeri delle bombe
     let bombsEl = [];
     //creaimo un ciclo per generare 16 numeri compresi tra i numeri di celle del livello
     nbom = 0
     while (bombsEl.length < 16) {
-        const numBomb = Number(Math.ceil(Math.random() * livello))
+        const numBomb = Number(Math.ceil(Math.random() * (max - min + 1) + min))
         if (!bombsEl.includes(numBomb)) {
             bombsEl.push(numBomb)
         }
@@ -104,6 +98,19 @@ function Generatebomb(livello) {
     }
     console.log(bombsEl)
     return (bombsEl)
+
+}
+
+function scoreReset(vite, score) {
+    if (vite > 0) {
+        punteggiomarkup = `<span>il tuo punteggio è ${score}, ed hai ancora ${vite}</span>`
+        containerPunti.innerHTML = punteggiomarkup
+    } else if (vite == 0) {
+        alert('HAI PERSO')
+        ContainerBoxEl.innerHTML = ('')
+        punteggiomarkup = `<span>il tuo punteggio è di ${score}, mi spiece hai terminato le vite!!</span>`
+        containerPunti.innerHTML = punteggiomarkup
+    }
 
 }
 
