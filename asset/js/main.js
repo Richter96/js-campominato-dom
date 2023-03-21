@@ -54,6 +54,8 @@ btnPlay.addEventListener('click', function () {// assegnamo al bottone una funzo
                     ContainerBoxEl.innerHTML = ('')
                     punteggiomarkup = `<span>il tuo punteggio è di ${score}, mi spiece hai terminato le vite!!</span>`
                     containerPunti.innerHTML = punteggiomarkup
+                    vite = 3
+                    score = 0
                 }
             } else {
                 this_box.classList.add('bg-lightblue')
